@@ -1,12 +1,17 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Courses, Lesson } = require('../models');
+const { User, Service } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
   Query: {
-
     users: async () => {
       return User.find().select('-__v -password');
+    },
+
+    user: async (parent, { _id }) => {
+      const user = await User.findOne({ _id: _id });
+
+      return user;
     },
 
     me: async (parent, args, context) => {
@@ -19,15 +24,15 @@ const resolvers = {
       throw new AuthenticationError('Not logged in');
     },
 
-    user: async (parent, args, context) => {
-      if (context.user) {
-        const user = await User.findOne({ _id: context.user });
+    services: async () => {
+      return Service.find();
+    },
 
-        return user;
-      }
+    service: async (parent, { _id }) => {
+      const service = await Service.findOne({ _id: _id });
 
-      throw new AuthenticationError('Not logged in');
-    }
+      return service;
+    },
   },
 
   Mutation: {
@@ -66,7 +71,29 @@ const resolvers = {
 
       return { token, user };
     },
-  }
+
+    createService: async (parent, serviceObj) => {
+      const service = await Service.create(serviceObj);
+
+      return service;
+    },
+
+    deleteService: async (parent, { _id }) => {
+      const service = await Service.findOneAndDelete({ _id });
+
+      return { message: 'Service Deleted', service: service };
+    },
+
+    updateService: async (parent, { _id, ...serviceObj }) => {
+      const service = await Service.findOneAndUpdate(
+        { _id: _id },
+        { ...serviceObj },
+        { new: true }
+      );
+
+      return service;
+    },
+  },
 };
 
 module.exports = resolvers;
