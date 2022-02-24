@@ -55,11 +55,11 @@ function CollapsibleDrawer(props) {
         }}
       />
       <Box sx={{ textAlign: 'center', pt: 1 }}>
-        <Button onClick={toggleDrawer(true)}>Open</Button>
+        <Button onClick={toggleDrawer(true)}>open</Button>
       </Box>
       <SwipeableDrawer
         container={container}
-        anchor="bottom"
+        anchor="top"
         open={open}
         onClose={toggleDrawer(false)}
         onOpen={toggleDrawer(true)}
@@ -72,7 +72,7 @@ function CollapsibleDrawer(props) {
         <StyledBox
           sx={{
             position: 'absolute',
-            top: -drawerBleeding,
+            bottom: -drawerBleeding,
             borderTopLeftRadius: 8,
             borderTopRightRadius: 8,
             visibility: 'visible',
@@ -81,7 +81,9 @@ function CollapsibleDrawer(props) {
           }}
         >
           <Puller />
-          <Typography sx={{ p: 2, color: 'text.secondary' }}>51 results</Typography>
+          <Typography sx={{ p: 2, color: 'text.secondary' }}>
+            Possible use for mobile only.
+          </Typography>
         </StyledBox>
         <StyledBox
           sx={{
@@ -91,10 +93,11 @@ function CollapsibleDrawer(props) {
             overflow: 'auto',
           }}
         >
-          <Skeleton variant="rectangular" height="100%" />
+          <Skeleton variant="rectangular" height="100%">
+          </Skeleton>
         </StyledBox>
       </SwipeableDrawer>
-    </Root>
+    </Root >
   );
 }
 
