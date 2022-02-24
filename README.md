@@ -1,62 +1,70 @@
-# Subscription-Tracker
+# Video Subscription Tracker
 
-## Licensing:
+Video Subscription Tracker is an application that provides users a way to track their video streaming subscriptions and serves as a ready-reckoner for all the shows that they are watching or want to watch.
 
-![license](https://img.shields.io/badge/license-MIT-blue)
+## Table of contents
 
-## Table of Contents
+- [Video Subscription Tracker](#video-subscription-tracker)
+  - [Table of contents](#table-of-contents)
+  - [Description](#description)
+  - [Deployed Link](#deployed-link)
+  - [Screenshots](#screenshots)
+      - [LoginSignup:](#loginsignup)
+      - [Dashboard:](#dashboard)
+  - [Technologies](#technologies)
+  - [Setup](#setup)
+  - [Licenses](#licenses)
+  - [Developer(s)](#developers)
 
-- [Subscription-Tracker](#subscription-tracker)
-  - [Licensing:](#licensing)
-  - [Table of Contents](#table-of-contents)
-  - [Description:](#description)
-  - [Installation:](#installation)
-  - [Usage:](#usage)
-  - [License](#license)
-  - [Contribution:](#contribution)
-  - [Testing:](#testing)
-  - [Additional Info:](#additional-info)
+## Description
 
-## Description:
+It allows users to Track all the Video Streaming Services that they have subscribed to. It will allow them to keep track of the money that they're spending on a monthly basis on Video Streaming subscriptions. It will also allow the users to lookup different shows that they're watching/want to watch and find out which streaming service has them. It will let them know if the show that they want to watch is already available to them in one of the services that they've subscribed to or if they should subscribe to a new service to be able to watch that show. The app will also make recommendations regarding how they're using their subscriptions and if they need to cancel some service or other.
 
-This is a group project that allows users to Track all the Video Streaming Services that they have subscribed to. It will allow them to keep track of the money that they're spending on a monthly basis on Video Streaming subscriptions. It will also allow the users to lookup different shows that they're watching/want to watch and find out which streaming service has them. It will let them know if the show that they want to watch is already available to them in one of the services that they've subscribed to or if they should subscribe to a new service to be able to watch that show. The app will also make recommendations regarding how they're using their subscriptions and if they need to cancel some service or other.
+The app is built with MongoDB, Express, React and Node. GraphQL API with Apollo Server is used to perform queries and mutations.
 
-## Installation:
+## Deployed Link
 
-## Usage:
+[Vide-Subscription-tracker](https://radiant-hamlet-31156.herokuapp.com/)
 
-## License
+## Screenshots
 
-MIT License
+#### LoginSignup:
 
-Copyright (c) 2021
+![Main Page](/client/src/assets/images/screenshot-1.png)
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+#### Dashboard:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+![Dashboard](/client/src/assets/images/screenshot-2.png)
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+## Technologies
 
-## Contribution:
+![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)  
+![Express.js](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)  
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Material-UI](https://img.shields.io/badge/Material--UI-0081CB?style=for-the-badge&logo=material-ui&logoColor=white)  
+![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)  
+![GraphQL](https://img.shields.io/badge/GraphQL-E4405F?style=for-the-badge)  
+![Apollo](https://img.shields.io/badge/Apollo_Server-8B89CC?style=for-the-badge)  
+![Mongoose.js](https://img.shields.io/badge/Mongoose.js-880000?style=for-the-badge&logoColor=white)  
+![MongoDB Atlas](https://img.shields.io/badge/MongoDB%20Atlas-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)  
+![Heroku](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white)
 
-Members of this group project are Naomi Eckhoff, Robert Burson, Bill Morris, Daniel Denton, Raman Trikkur
+## Setup
 
-## Testing:
+- Link to Repository: https://github.com/ramantv/Subscription-Tracker
+- Clone GitHub repository.
+- run 'npm install'.
+- Run 'npm run start:dev' to start the application locally.
 
-## Additional Info:
+## Licenses
 
-- Github:
-- Email:
-- Screencatify:
+![MIT](https://img.shields.io/static/v1?label=License&message=MIT&color=BLUE)
+![ISC](https://img.shields.io/static/v1?label=License&message=ISC&color=BLUE)
+
+## Developer(s)
+
+- [Naomi Eckhoff](https://github.com/Naomi-Eckhoff)
+- [Robert Burson](https://github.com/RobBurson)
+- [Bill Morris](https://github.com/bilcon)
+- [Daniel Denton](https://github.com/HighDynamics)
+- [Raman TV.](https://github.com/ramantv)
