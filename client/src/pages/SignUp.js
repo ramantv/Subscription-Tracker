@@ -34,6 +34,8 @@ export default function SignUp() {
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
     console.log({
+      firstName: data.get('firstName'),
+      lastName: data.get('lastName'),
       email: data.get('email'),
       password: data.get('password'),
     });
