@@ -35,10 +35,26 @@ function App() {
 			<Router>
 				<Container maxWidth="lg">
 					<Box sx={{ my: 4 }}>
+						{Auth.loggedIn() ? (
+							<>
 
-						<Route exact path='/' component={SignIn} />
-						<Route exact path='/signup' component={SignUp} />
-
+								<div className='container'>
+									<Switch>
+										<Route exact path='/dashboard' component={LandingPage} />
+										<Route exact path='/' component={LandingPage} />
+										<Route component={NotFound} />
+									</Switch>
+								</div>
+							</>
+						) : (
+							<>
+								{/* <Switch> */}
+								<Route exact path='/login' component={SignIn} />
+								<Route exact path='/' component={LandingPage} />
+								<Route exact path='/signup' component={SignUp} />
+								{/* </Switch> */}
+							</>
+						)}
 					</Box>
 				</Container>
 			</Router>
