@@ -13,6 +13,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import Auth from '../utils/auth';
 import { useMutation } from '@apollo/client';
 import { LOGIN } from '../utils/mutations';
 
@@ -55,6 +56,8 @@ export default function SignInSide() {
       });
 
       console.log(data);
+
+      Auth.login(data.login.token);
 
     } catch (err) {
       console.error(err);
