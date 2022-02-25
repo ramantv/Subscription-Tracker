@@ -31,11 +31,18 @@ const client = new ApolloClient({
 
 function App() {
 	return (
-	  <Container maxWidth="lg">
-		<Box sx={{ my: 4 }}>
-		  <SignIn/>
-		</Box>
-	  </Container>
+		<ApolloProvider client={client}>
+			<Router>
+				<Container maxWidth="lg">
+					<Box sx={{ my: 4 }}>
+
+						<Route exact path='/' component={SignIn} />
+						<Route exact path='/signup' component={SignUp} />
+
+					</Box>
+				</Container>
+			</Router>
+		</ApolloProvider>
 	);
 }
 
