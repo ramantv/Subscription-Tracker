@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,6 +13,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+import { useMutation } from '@apollo/client';
+import { CREATE_USER } from '../utils/mutations';
 
 function Copyright(props) {
   return (
@@ -29,14 +33,36 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
+  const [createUser] = useMutation(CREATE_USER);
+
+  var [userFormData] = useState({ firstName: '', lastName: '', email: '', password: '' });
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+
+
+    const formData = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+
+    userFormData = ({
+      firstName: formData.get('firstName'),
+      lastName: formData.get('lastName'),
+      email: formData.get('email'),
+      password: formData.get('password'),
     });
+
+    console.log({ userFormData });
+
+    try {
+      const { data } = await createUser({
+        variables: { ...userFormData }
+      });
+
+      console.log(data);
+
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -118,7 +144,7 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signin" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
