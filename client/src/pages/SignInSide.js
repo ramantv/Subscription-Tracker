@@ -37,14 +37,28 @@ export default function SignInSide() {
   var [userFormData] = useState({ firstName: '', lastName: '', email: '', password: '' });
 
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    const formData = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+
+    userFormData = ({
+      email: formData.get('email'),
+      password: formData.get('password'),
     });
+
+    console.log({ userFormData });
+
+    try {
+      const { data } = await loginUser({
+        variables: { ...userFormData }
+      });
+
+      console.log(data);
+
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
