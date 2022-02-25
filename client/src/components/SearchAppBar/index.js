@@ -24,6 +24,7 @@ const Search = styled('div')(({ theme }) => ({
   },
 }));
 
+//the interior of the search box
 const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: '100%',
@@ -34,6 +35,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   justifyContent: 'center',
 }));
 
+// the search box itself
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
@@ -55,7 +57,10 @@ const SearchAppBar = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar
+        position="static"
+        color="primary"
+      >
         <Toolbar>
           <IconButton
             size="large"
@@ -72,7 +77,7 @@ const SearchAppBar = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            MUI
+            Our Name Goes Here
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -85,7 +90,7 @@ const SearchAppBar = () => {
           </Search>
         </Toolbar>
       </AppBar>
-    </Box>
+    </Box >
   );
 }
 
