@@ -23,7 +23,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "apollo": "^2.10.3",
     "if-env": "^1.0.4"
   },
   "devDependencies": {
