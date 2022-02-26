@@ -4,11 +4,6 @@ const { Schema } = mongoose;
 const bcrypt = require('bcrypt');
 const subscriptionSchema = require('./Subscription');
 
-/*
-// import schema from Subscription.js
-const subscriptionSchema = require("./Subscription");
-*/
-
 const userSchema = new Schema(
   {
     firstName: {
@@ -31,10 +26,6 @@ const userSchema = new Schema(
       type: String,
       required: true,
       minlength: 6,
-    },
-    creditCardAlias: {
-      type: String,
-      required: false,
     },
     subscriptions: [subscriptionSchema],
   },
@@ -61,12 +52,10 @@ userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 
-/*
-// when we query a user, we'll also get another field called `subsCount` with the number of saved subscriptions the user has
-userSchema.virtual("bookCount").get(function () {
-  return this.savedSubscriptions.length;
+// when we query a user, we'll also get another field called `subscriptionCount` with the number of saved subscriptions the user has
+userSchema.virtual('subscriptionCount').get(function () {
+  return this.subscriptions.length;
 });
-*/
 
 const User = mongoose.model('User', userSchema);
 
