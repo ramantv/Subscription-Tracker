@@ -57,7 +57,7 @@ userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 
-// when we query a user, we'll also get another field called `subsCount` with the number of saved subscriptions the user has
+// when we query a user, we'll also get another field called `subscriptionCount` with the number of saved subscriptions the user has
 userSchema.virtual('subscriptionCount').get(function () {
   return this.subscriptions.length;
 });
