@@ -32,10 +32,6 @@ const userSchema = new Schema(
       required: true,
       minlength: 6,
     },
-    creditCardAlias: {
-      type: String,
-      required: false,
-    },
     subscriptions: [subscriptionSchema],
   },
   // set this to use virtual below
@@ -61,12 +57,10 @@ userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 
-/*
 // when we query a user, we'll also get another field called `subsCount` with the number of saved subscriptions the user has
-userSchema.virtual("bookCount").get(function () {
-  return this.savedSubscriptions.length;
+userSchema.virtual('subscriptionCount').get(function () {
+  return this.subscriptions.length;
 });
-*/
 
 const User = mongoose.model('User', userSchema);
 
