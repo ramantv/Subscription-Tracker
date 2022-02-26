@@ -4,11 +4,6 @@ const { Schema } = mongoose;
 const bcrypt = require('bcrypt');
 const subscriptionSchema = require('./Subscription');
 
-/*
-// import schema from Subscription.js
-const subscriptionSchema = require("./Subscription");
-*/
-
 const userSchema = new Schema(
   {
     firstName: {
