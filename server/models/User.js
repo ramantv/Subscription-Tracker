@@ -2,47 +2,49 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const bcrypt = require('bcrypt');
+const subscriptionSchema = require('./Subscription');
 
 /*
 // import schema from Subscription.js
 const subscriptionSchema = require("./Subscription");
 */
 
-const userSchema = new Schema({
-  firstName: {
-    type: String,
-    required: true,
-    trim: true
+const userSchema = new Schema(
+  {
+    firstName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    lastName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      match: [/.+@.+\..+/, 'Must use a valid email address'],
+    },
+    password: {
+      type: String,
+      required: true,
+      minlength: 6,
+    },
+    creditCardAlias: {
+      type: String,
+      required: false,
+    },
+    subscriptions: [subscriptionSchema],
   },
-  lastName: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    match: [/.+@.+\..+/, "Must use a valid email address"],
-  },
-  password: {
-    type: String,
-    required: true,
-    minlength: 6
-  },
-  /*savedSubscriptions: {
-    type: Schema.Types.Array,
-    ref: 'Subscriptions',
-    required: false,
-  },
-    // set this to use virtual below
+  // set this to use virtual below
   {
     toJSON: {
       virtuals: true,
     },
   }
-  */
-});
+);
 
 // set up pre-save middleware to create password
 userSchema.pre('save', async function (next) {

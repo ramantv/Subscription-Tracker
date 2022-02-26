@@ -4,19 +4,22 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
   Query: {
+    // User queries
     users: async () => {
       return User.find().select('-__v -password');
     },
 
-    user: async (parent, { _id }) => {
-      const user = await User.findOne({ _id: _id });
+    user: async (parent, { _id, username }) => {
+      const user = await User.findOne({
+        $or: [{ _id: _id }, { username: username }],
+      });
 
       return user;
     },
 
     me: async (parent, args, context) => {
       if (context.user) {
-        const user = await User.findOne({ _id: context.user });
+        const user = await User.findOne({ _id: context.user._id });
 
         return user;
       }
@@ -24,6 +27,7 @@ const resolvers = {
       throw new AuthenticationError('Not logged in');
     },
 
+    // Service queries
     services: async () => {
       return Service.find();
     },
@@ -36,6 +40,7 @@ const resolvers = {
   },
 
   Mutation: {
+    // User mutations
     createUser: async (parent, args) => {
       const user = await User.create(args);
       const token = signToken(user);
@@ -72,6 +77,40 @@ const resolvers = {
       return { token, user };
     },
 
+    addSubscription: async (parent, { ...subscription }, context) => {
+      if (context.user) {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { subscriptions: subscription } },
+          { new: true, runValidators: true }
+        );
+        return updatedUser;
+      }
+
+      throw new AuthenticationError('You need to be logged in!');
+    },
+
+    deleteSubscription: async (parent, { _id }, context) => {
+      if (context.user) {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $pull: {
+              subscriptions: {
+                _id: _id,
+              },
+            },
+          },
+          { new: true }
+        );
+
+        return updatedUser;
+      }
+
+      throw new AuthenticationError('You need to be logged in!');
+    },
+
+    // Service mutations
     createService: async (parent, serviceObj) => {
       const service = await Service.create(serviceObj);
 
