@@ -1,11 +1,10 @@
-const { Schema } = require('mongoose');
+const { Schema } = require("mongoose");
 
 const subscriptionSchema = new Schema({
   name: {
     type: String,
     required: true,
     trim: true,
-    unique: true,
   },
   price: {
     type: Number,
