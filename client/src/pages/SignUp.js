@@ -15,7 +15,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { useMutation } from '@apollo/client';
-import { CREATE_USER } from '../utils/mutations';
+import { ADD_USER } from '../utils/mutations';
 
 function Copyright(props) {
   return (
@@ -33,7 +33,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
-  const [createUser] = useMutation(CREATE_USER);
+  const [addUser] = useMutation(ADD_USER);
 
   var [userFormData] = useState({ firstName: '', lastName: '', email: '', password: '' });
 
@@ -54,7 +54,7 @@ export default function SignUp() {
     console.log({ userFormData });
 
     try {
-      const { data } = await createUser({
+      const { data } = await addUser({
         variables: { ...userFormData }
       });
 
