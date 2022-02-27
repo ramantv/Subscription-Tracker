@@ -51,7 +51,7 @@ function App() {
           <Box sx={{ my: 4 }}>
             <Switch>
               <Route exact path="/" component={LandingPage} />
-              <Route exact path="/dashboard" component={LandingPage} />
+              <Route exact path="/dashboard" component={Dashboard} />
               <Route exact path="/login" component={SignIn} />
               <Route exact path="/signup" component={SignUp} />
               <Route component={NotFound} />
