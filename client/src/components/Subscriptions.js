@@ -7,81 +7,38 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Title from './Title';
 
-// Generate Some random Subscription Data
-function createData(id, date, name, category, paymentMethod, amount) {
-  return { id, date, name, category, paymentMethod, amount };
-}
-
-const rows = [
-  createData(
-    0,
-    '16 Mar, 2019',
-    'Netflix',
-    'Video Streaming',
-    'VISA ⠀•••• 3719',
-    19.99,
-  ),
-  createData(
-    1,
-    '16 Mar, 2019',
-    'Youtube Premium',
-    'Video Streaming',
-    'VISA ⠀•••• 2574',
-    9.99,
-  ),
-  createData(
-    2,
-    '16 Mar, 2019',
-    'Amazon Prime',
-    'Video Streaming',
-    'AMEX ⠀•••• 2000',
-    12.99,
-  ),
-  createData(
-    3,
-    '15 Mar, 2019',
-    'Spotify',
-    'Music Streaming',
-    'VISA ⠀•••• 5919',
-    6.99,
-  ),
-  createData(
-    4,
-    '01 Jan, 2020',
-    'Sirius XM',
-    'Satellite Radio',
-    'Paypal',
-    5.99,
-  ),
-
-];
+import { useQuery } from '@apollo/client';
+import { GET_ME } from '../utils/queries';
 
 function preventDefault(event) {
   event.preventDefault();
 }
 
 export default function Orders() {
+  const { user, loading } = useQuery(GET_ME);
+  const subscriptions = user.subscriptions;
+  console.log(user);
   return (
     <React.Fragment>
       <Title>Streaming Subscriptions</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>Date</TableCell>
             <TableCell>Name</TableCell>
-            <TableCell>Category</TableCell>
-            <TableCell>Payment Method</TableCell>
+            <TableCell>URL</TableCell>
+            <TableCell>Tiered</TableCell>
+            <TableCell>Card Alias</TableCell>
             <TableCell align="right">Monthly Cost</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>{row.date}</TableCell>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.category}</TableCell>
-              <TableCell>{row.paymentMethod}</TableCell>
-              <TableCell align="right">{`$${row.amount}`}</TableCell>
+          {subscriptions.map((subscription) => (
+            <TableRow key={subscription._id}>
+              <TableCell>{subscription.name}</TableCell>
+              <TableCell>{subscription.url}</TableCell>
+              <TableCell>{subscription.tiered}</TableCell>
+              <TableCell>{subscription.cardAlias}</TableCell>
+              <TableCell align="right">{`$${subscription.price}`}</TableCell>
             </TableRow>
           ))}
         </TableBody>
