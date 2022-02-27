@@ -42,26 +42,16 @@ export default function SignInSide(props) {
   const [login, { error }] = useMutation(LOGIN_USER);
 
   // update state based on form input changes
-  /*
   const handleChange = (event) => {
     const { name, value } = event.target;
-
     setFormState({
       ...formState,
       [name]: value,
     });
   };
-  */
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-
     try {
       const { data } = await login({
         variables: { ...formState },
@@ -129,6 +119,7 @@ export default function SignInSide(props) {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                onChange={handleChange}
                 autoFocus
               />
               <TextField
@@ -139,6 +130,7 @@ export default function SignInSide(props) {
                 label="Password"
                 type="password"
                 id="password"
+                onChange={handleChange}
                 autoComplete="current-password"
               />
               <FormControlLabel
