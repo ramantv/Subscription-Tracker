@@ -63,7 +63,7 @@ function preventDefault(event) {
 export default function Orders() {
   return (
     <React.Fragment>
-      <Title>Your Subscriptions</Title>
+      <Title>Streaming Subscriptions</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
