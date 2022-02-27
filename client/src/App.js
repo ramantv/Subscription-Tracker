@@ -12,14 +12,13 @@ import { setContext } from "@apollo/client/link/context";
 
 // material-ui imports
 import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import Link from "@mui/material/Link";
 
 // Our own pages
 import SignIn from "./pages/SignInSide";
 import SignUp from "./pages/SignUp";
 import LandingPage from "./pages/LandingPage";
+import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 
 import Auth from "./utils/auth";
@@ -62,38 +61,5 @@ function App() {
     </ApolloProvider>
   );
 }
-
-// function App() {
-// 	return (
-// 		<ApolloProvider client={client}>
-// 			<Router>
-// 				<div>
-// 					{Auth.loggedIn() ? (
-// 						<>
-// 							<Header />
-// 							<div className='container'>
-// 								<Switch>
-// 									<Route exact path='/dashboard' component={LandingPage} />
-// 									<Route exact path='/' component={LandingPage} />
-// 									<Route component={NotFound} />
-// 								</Switch>
-// 							</div>
-// 						</>
-// 					) : (
-// 						<>
-// 							{/* <Switch> */}
-// 							<Route exact path='/login' component={SignIn} />
-// 							<Route exact path='/' component={LandingPage} />
-// 							<Route exact path='/signup' component={SignUp} />
-// 							{/* </Switch> */}
-// 						</>
-// 					)}
-// 					<Footer />
-// 					<Chatbot />
-// 				</div>
-// 			</Router>
-// 		</ApolloProvider>
-// 	);
-// }
 
 export default App;
