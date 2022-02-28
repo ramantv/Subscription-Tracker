@@ -1,12 +1,12 @@
-const { AuthenticationError } = require('apollo-server-express');
-const { User, Service } = require('../models');
-const { signToken } = require('../utils/auth');
+const { AuthenticationError } = require("apollo-server-express");
+const { User, Service } = require("../models");
+const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
     // User queries
     users: async () => {
-      return User.find().select('-__v -password');
+      return User.find().select("-__v -password");
     },
 
     user: async (parent, { _id, username }) => {
@@ -24,7 +24,7 @@ const resolvers = {
         return user;
       }
 
-      throw new AuthenticationError('Not logged in');
+      throw new AuthenticationError("Not logged in");
     },
 
     // Service queries
@@ -63,13 +63,13 @@ const resolvers = {
       const user = await User.findOne({ email });
 
       if (!user) {
-        throw new AuthenticationError('Incorrect credentials');
+        throw new AuthenticationError("Incorrect credentials");
       }
 
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw new AuthenticationError('Incorrect credentials');
+        throw new AuthenticationError("Incorrect credentials");
       }
 
       const token = signToken(user);
@@ -87,7 +87,7 @@ const resolvers = {
         return updatedUser;
       }
 
-      throw new AuthenticationError('You need to be logged in!');
+      throw new AuthenticationError("You need to be logged in!");
     },
 
     deleteSubscription: async (parent, { _id }, context) => {
@@ -107,7 +107,40 @@ const resolvers = {
         return updatedUser;
       }
 
-      throw new AuthenticationError('You need to be logged in!');
+      throw new AuthenticationError("You need to be logged in!");
+    },
+
+    addToWatchList: async (parent, { ...movie }, context) => {
+      if (context.user) {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { watchList: movie } },
+          { new: true, runValidators: true }
+        );
+        return updatedUser;
+      }
+
+      throw new AuthenticationError("You need to be logged in!");
+    },
+
+    deleteFromWatchList: async (parent, { _id }, context) => {
+      if (context.user) {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $pull: {
+              watchList: {
+                _id: _id,
+              },
+            },
+          },
+          { new: true }
+        );
+
+        return updatedUser;
+      }
+
+      throw new AuthenticationError("You need to be logged in!");
     },
 
     // Service mutations
@@ -120,7 +153,7 @@ const resolvers = {
     deleteService: async (parent, { _id }) => {
       const service = await Service.findOneAndDelete({ _id });
 
-      return { message: 'Service Deleted', service: service };
+      return { message: "Service Deleted", service: service };
     },
 
     updateService: async (parent, { _id, ...serviceObj }) => {

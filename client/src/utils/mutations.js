@@ -107,3 +107,33 @@ export const DELETE_SUBSCRIPTION = gql`
     }
   }
 `;
+
+export const ADD_TO_WATCH_LIST = gql`
+  mutation addToWatchList($name: String!, $tmdbId: String!) {
+    addToWatchList(name: $name, tmdbId: $tmdbId) {
+      firstName
+      lastName
+      email
+      watchList {
+        _id
+        name
+        tmdbId
+      }
+    }
+  }
+`;
+
+export const DELETE_FROM_WATCH_LIST = gql`
+  mutation deleteFromWatchList($_id: ID!) {
+    deleteFromWatchList(_id: $_id) {
+      firstName
+      lastName
+      email
+      watchList {
+        _id
+        name
+        tmdbId
+      }
+    }
+  }
+`;

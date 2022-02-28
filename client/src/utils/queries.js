@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const GET_ME = gql`
   {
@@ -18,6 +18,11 @@ export const GET_ME = gql`
         cardAlias
         billingCycle
       }
+      watchList {
+        _id
+        name
+        tmdbId
+      }
     }
   }
 `;
@@ -32,4 +37,3 @@ export const QUERY_ME_BASIC = gql`
     }
   }
 `;
-
