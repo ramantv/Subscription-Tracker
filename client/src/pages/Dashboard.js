@@ -97,27 +97,6 @@ function Dashboard() {
 
         <UpperNavBar />
 
-        <Drawer variant="permanent" open={open}>
-          <Toolbar
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-end",
-              px: [1],
-            }}
-          >
-            <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </Toolbar>
-          <Divider />
-          <List component="nav">
-            {mainMenuItems}
-            <Divider sx={{ my: 1 }} />
-            {secondaryMenuItems}
-          </List>
-        </Drawer>
-
         <Box
           component="main"
           sx={{
@@ -130,7 +109,7 @@ function Dashboard() {
             overflow: "auto",
           }}
         >
-          <Toolbar />
+
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
               {/* List all the user's Subscriptions */}
