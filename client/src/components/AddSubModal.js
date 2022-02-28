@@ -64,8 +64,6 @@ export default function AddSubModal() {
         variables: { ...formState },
       });
 
-      console.log(data.addSubscription);
-      Auth.login(data.addSubscription.token);
     } catch (err) {
       console.error(err);
     }
