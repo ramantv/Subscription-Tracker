@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
 import { DELETE_SUBSCRIPTION } from "../utils/mutations";
+
 // Generate Some random Subscription Data
 function createData(id, date, name, category, paymentMethod, amount) {
   return { id, date, name, category, paymentMethod, amount };
@@ -65,10 +66,22 @@ function preventDefault(event) {
 
 export default function Orders() {
 
+  const [deleteSubscription, { error }] = useMutation(DELETE_SUBSCRIPTION);
 
-  const handleDelete = (row, e) => {
+  const handleDelete = async (row, e) => {
+
     console.log({ ...row });
+
+    try {
+      const { data } = await deleteSubscription({
+        variables: { ...row },
+      });
+
+    } catch (err) {
+      console.error(err);
+    }
   };
+
 
   return (
     <React.Fragment>
