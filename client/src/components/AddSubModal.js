@@ -40,6 +40,7 @@ export default function AddSubModal() {
     date: "",
     name: "",
     price: "",
+    category: "",
     tiered: "",
     url: "",
     cardAlias: "",
@@ -104,18 +105,18 @@ export default function AddSubModal() {
                   onChange={handleChange}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
-                  name="firstName"
+                  name="name"
                   required
                   fullWidth
-                  id="firstName"
-                  label="First Name"
+                  id="name"
+                  label="Name"
                   onChange={handleChange}
                   autoFocus
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
