@@ -7,7 +7,7 @@ function LandingPage() {
       <div className="overlay">
         <div className="landing-nav">
           <Link to="/" className="landing-nav-title">
-            <h1>VideoSubTrack</h1>
+            <h1>Subtrackt</h1>
           </Link>
 
           <nav className="landing-navbar">
@@ -15,6 +15,7 @@ function LandingPage() {
               <Link to="/login" className="landing-list-item">
                 Login
               </Link>
+              <span> | </span>
               <Link to="/signup" className="landing-list-item">
                 Signup
               </Link>
@@ -22,9 +23,9 @@ function LandingPage() {
           </nav>
         </div>
         <div>
-          <p className="hero-text">Video Streaming Subscriptions Tracker </p>
+          <p className="hero-text">Subtrackt</p>
           <p className="hero-subtext">
-            Your handy dandy Video Streaming Subscription Ready-Reckoner!
+            Your one stop shop for all of your video subscription tracking needs!
           </p>
         </div>
       </div>
