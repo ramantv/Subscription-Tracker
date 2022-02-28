@@ -39,8 +39,8 @@ export default function AddSubModal() {
   const [formState, setFormState] = React.useState({
     date: "",
     name: "",
-    price: "",
     category: "",
+    price: "",
     tiered: "",
     url: "",
     cardAlias: "",
@@ -120,10 +120,9 @@ export default function AddSubModal() {
                 <TextField
                   required
                   fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
+                  id="category"
+                  label="Category"
+                  name="category"
                   onChange={handleChange}
                 />
               </Grid>
@@ -131,10 +130,9 @@ export default function AddSubModal() {
                 <TextField
                   required
                   fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
+                  id="cardAlias"
+                  label="Payment Method"
+                  name="cardAlias"
                   onChange={handleChange}
                 />
               </Grid>
@@ -142,11 +140,9 @@ export default function AddSubModal() {
                 <TextField
                   required
                   fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
+                  name="price"
+                  label="Price"
+                  id="price"
                   onChange={handleChange}
                 />
               </Grid>
