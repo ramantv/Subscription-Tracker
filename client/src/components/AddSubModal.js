@@ -101,11 +101,11 @@ export default function AddSubModal() {
                   type="date"
                   name="date"
                   defaultValue={today}
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  autoComplete="given-name"
                   name="firstName"
                   required
                   fullWidth
