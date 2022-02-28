@@ -6,6 +6,10 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Title from './Title';
+import Button from "@mui/material/Button";
+import { useMutation } from "@apollo/client";
+import Auth from "../utils/auth";
+import { DELETE_SUBSCRIPTION } from "../utils/mutations";
 
 import AddSubModal from './AddSubModal'
 
@@ -63,6 +67,24 @@ function preventDefault(event) {
 }
 
 export default function Orders() {
+
+  const [deleteSubscription, { error }] = useMutation(DELETE_SUBSCRIPTION);
+
+  const handleDelete = async (row, e) => {
+
+    console.log({ ...row });
+
+    try {
+      const { data } = await deleteSubscription({
+        variables: { ...row },
+      });
+
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+
   return (
     <React.Fragment>
       <Title>Streaming Subscriptions</Title>
@@ -85,6 +107,14 @@ export default function Orders() {
               <TableCell>{row.category}</TableCell>
               <TableCell>{row.paymentMethod}</TableCell>
               <TableCell align="right">{`$${row.amount}`}</TableCell>
+              <TableCell>
+                <Button
+                  variant="contained"
+                  onClick={(e) => handleDelete(row, e)}
+                >
+                  X
+                </Button>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
