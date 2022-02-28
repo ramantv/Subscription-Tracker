@@ -21,6 +21,15 @@ const style = {
   p: 4,
 };
 
+function currentDate() {
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  var yyyy = today.getFullYear();
+
+  return (String(yyyy + '-' + mm + '-' + dd));
+}
+
 export default function AddSubModal() {
   const [open, setOpen] = React.useState(true);
   const handleOpen = () => setOpen(true);
@@ -61,9 +70,11 @@ export default function AddSubModal() {
     }
   };
 
+  const today = currentDate();
+
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
+      <Button onClick={handleOpen}>Add Subscription</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -81,6 +92,17 @@ export default function AddSubModal() {
             sx={{ mt: 1 }}
           >
             <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="date"
+                  label="Date"
+                  type="date"
+                  name="date"
+                  defaultValue={today}
+                />
+              </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
