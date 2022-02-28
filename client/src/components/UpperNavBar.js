@@ -36,7 +36,7 @@ const ResponsiveAppBar = () => {
             noWrap
             sx={{ flexGrow: 1 }}
           >
-            Dashboard
+            Subtrackt
           </Typography>
 
           <Typography
