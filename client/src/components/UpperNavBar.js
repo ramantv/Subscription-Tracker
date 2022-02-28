@@ -80,6 +80,7 @@ const ResponsiveAppBar = () => {
             <Tooltip title="logout">
               <IconButton color="inherit" onClick={logout}>
                 <LogoutIcon />
+                Logout
               </IconButton>
             </Tooltip>
           </Box>
