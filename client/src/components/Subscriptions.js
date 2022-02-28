@@ -66,8 +66,8 @@ function preventDefault(event) {
 export default function Orders() {
 
 
-  const handleDelete = (row) => {
-    console.log(row);
+  const handleDelete = (row, e) => {
+    console.log({ ...row });
   };
 
   return (
@@ -93,9 +93,8 @@ export default function Orders() {
               <TableCell align="right">{`$${row.amount}`}</TableCell>
               <TableCell>
                 <Button
-                  type="submit"
                   variant="contained"
-                  onClick={handleDelete(row)}
+                  onClick={(e) => handleDelete(row, e)}
                 >
                   X
                 </Button>
