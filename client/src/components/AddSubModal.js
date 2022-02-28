@@ -7,7 +7,7 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
-import { CREATE_USER } from "../utils/mutations";
+import { ADD_SUBSCRIPTION } from "../utils/mutations";
 
 const style = {
   position: 'absolute',
@@ -22,16 +22,19 @@ const style = {
 };
 
 export default function AddSubModal() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const [createUser, { error }] = useMutation(CREATE_USER);
+  const [addSubscription, { error }] = useMutation(ADD_SUBSCRIPTION);
   const [formState, setFormState] = React.useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
+    date: "",
+    name: "",
+    price: "",
+    tiered: "",
+    url: "",
+    cardAlias: "",
+    billingCycle: "",
   });
 
   const handleChange = (event) => {
@@ -47,12 +50,12 @@ export default function AddSubModal() {
     event.preventDefault();
 
     try {
-      const { data } = await createUser({
+      const { data } = await addSubscription({
         variables: { ...formState },
       });
 
-      console.log(data.createUser);
-      Auth.login(data.createUser.token);
+      console.log(data.addSubscription);
+      Auth.login(data.addSubscription.token);
     } catch (err) {
       console.error(err);
     }
