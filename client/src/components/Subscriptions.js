@@ -6,6 +6,7 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Title from './Title';
+import Button from "@mui/material/Button";
 
 // Generate Some random Subscription Data
 function createData(id, date, name, category, paymentMethod, amount) {
@@ -82,6 +83,11 @@ export default function Orders() {
               <TableCell>{row.category}</TableCell>
               <TableCell>{row.paymentMethod}</TableCell>
               <TableCell align="right">{`$${row.amount}`}</TableCell>
+              <TableCell>
+                <Button>
+                  X
+                </Button>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
