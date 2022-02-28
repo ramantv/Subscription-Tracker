@@ -84,7 +84,10 @@ export default function Orders() {
               <TableCell>{row.paymentMethod}</TableCell>
               <TableCell align="right">{`$${row.amount}`}</TableCell>
               <TableCell>
-                <Button>
+                <Button
+                  type="submit"
+                  variant="contained"
+                >
                   X
                 </Button>
               </TableCell>
