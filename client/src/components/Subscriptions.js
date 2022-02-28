@@ -7,7 +7,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Title from './Title';
 import Button from "@mui/material/Button";
-
+import { useMutation } from "@apollo/client";
+import Auth from "../utils/auth";
+import { DELETE_SUBSCRIPTION } from "../utils/mutations";
 // Generate Some random Subscription Data
 function createData(id, date, name, category, paymentMethod, amount) {
   return { id, date, name, category, paymentMethod, amount };
@@ -62,6 +64,12 @@ function preventDefault(event) {
 }
 
 export default function Orders() {
+
+
+  const handleDelete = (row) => {
+    console.log(row);
+  };
+
   return (
     <React.Fragment>
       <Title>Streaming Subscriptions</Title>
@@ -87,6 +95,7 @@ export default function Orders() {
                 <Button
                   type="submit"
                   variant="contained"
+                  onClick={handleDelete(row)}
                 >
                   X
                 </Button>
