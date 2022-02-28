@@ -14,7 +14,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { Redirect } from "react-router";
 import Auth from "../utils/auth";
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages = ['Dashboard', 'Manage Subscriptions', 'Watch List'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const logout = () => {
@@ -114,33 +114,11 @@ const ResponsiveAppBar = () => {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+            <Tooltip title="logout">
               <IconButton color="inherit" onClick={logout}>
                 <LogoutIcon />
               </IconButton>
             </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
           </Box>
         </Toolbar>
       </Container>
