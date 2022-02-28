@@ -1,8 +1,9 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const bcrypt = require('bcrypt');
-const subscriptionSchema = require('./Subscription');
+const bcrypt = require("bcrypt");
+const subscriptionSchema = require("./Subscription");
+const watchListSchema = require("./WatchList");
 
 const userSchema = new Schema(
   {
@@ -20,7 +21,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
       unique: true,
-      match: [/.+@.+\..+/, 'Must use a valid email address'],
+      match: [/.+@.+\..+/, "Must use a valid email address"],
     },
     password: {
       type: String,
@@ -28,6 +29,7 @@ const userSchema = new Schema(
       minlength: 6,
     },
     subscriptions: [subscriptionSchema],
+    watchList: [watchListSchema],
   },
   // set this to use virtual below
   {
@@ -38,8 +40,8 @@ const userSchema = new Schema(
 );
 
 // set up pre-save middleware to create password
-userSchema.pre('save', async function (next) {
-  if (this.isNew || this.isModified('password')) {
+userSchema.pre("save", async function (next) {
+  if (this.isNew || this.isModified("password")) {
     const saltRounds = 10;
     this.password = await bcrypt.hash(this.password, saltRounds);
   }
@@ -53,10 +55,10 @@ userSchema.methods.isCorrectPassword = async function (password) {
 };
 
 // when we query a user, we'll also get another field called `subscriptionCount` with the number of saved subscriptions the user has
-userSchema.virtual('subscriptionCount').get(function () {
+userSchema.virtual("subscriptionCount").get(function () {
   return this.subscriptions.length;
 });
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;

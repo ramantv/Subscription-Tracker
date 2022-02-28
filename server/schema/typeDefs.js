@@ -1,4 +1,4 @@
-const { gql } = require('apollo-server-express');
+const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
   type User {
@@ -9,6 +9,7 @@ const typeDefs = gql`
     password: String
     subscriptionCount: Int
     subscriptions: [Subscription]
+    watchList: [WatchList]
   }
 
   type Subscription {
@@ -19,6 +20,12 @@ const typeDefs = gql`
     url: String
     cardAlias: String
     billingCycle: Int
+  }
+
+  type WatchList {
+    _id: ID
+    name: String
+    tmdbId: String
   }
 
   type Service {
@@ -72,7 +79,8 @@ const typeDefs = gql`
       billingCycle: Int!
     ): User
     deleteSubscription(_id: ID!): User
-
+    addToWatchList(name: String!, tmdbId: String!): User
+    deleteFromWatchList(_id: ID!): User
     # Service mutations
     createService(
       name: String!
