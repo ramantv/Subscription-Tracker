@@ -73,7 +73,12 @@ export default function AddSubModal() {
 
   return (
     <div>
-      <Button onClick={handleOpen}>Add Subscription</Button>
+      <Button
+        variant="contained"
+        onClick={handleOpen}
+      >
+        Add Subscription
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
