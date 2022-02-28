@@ -4,6 +4,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
 import MuiAppBar from "@mui/material/AppBar";
+import Button from "@mui/material/Button";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
@@ -17,6 +18,8 @@ import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import LogoutIcon from '@mui/icons-material/Logout';
+
 import { useQuery } from "@apollo/client";
 
 import {
@@ -40,8 +43,8 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Video Streaming Tracker
+      <Link color="inherit" href="/">
+        Subtrackt
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -103,6 +106,13 @@ function Dashboard() {
     setOpen(!open);
   };
 
+  const logout = () => {
+    if (Auth.loggedIn()) {
+      Auth.logout();
+      return <Redirect to="/login" />;
+    }
+  };
+
   const { data: userData } = useQuery(QUERY_ME_BASIC);
 
   if (!Auth.loggedIn()) {
@@ -141,11 +151,22 @@ function Dashboard() {
             >
               Dashboard
             </Typography>
+            {/*
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
+            */}
+
+            {/*
+            <Button color="inherit" onClick={logout}>Log Out</Button>
+            */}
+
+            <IconButton color="inherit" onClick={logout}>
+                <LogoutIcon />
+            </IconButton>
+            
           </Toolbar>
         </AppBar>
 
