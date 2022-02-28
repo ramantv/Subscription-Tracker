@@ -26,7 +26,7 @@ function Copyright(props) {
     >
       {"Copyright © "}
       <Link color="inherit" to="/">
-        Your Website
+        Subtrackt
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}

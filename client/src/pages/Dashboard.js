@@ -40,8 +40,8 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Video Streaming Tracker
+      <Link color="inherit" href="/">
+        Subtrackt
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
