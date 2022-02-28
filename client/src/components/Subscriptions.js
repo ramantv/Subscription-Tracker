@@ -7,6 +7,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Title from './Title';
 
+import AddSubModal from './AddSubModal'
+
 // Generate Some random Subscription Data
 function createData(id, date, name, category, paymentMethod, amount) {
   return { id, date, name, category, paymentMethod, amount };
@@ -64,6 +66,7 @@ export default function Orders() {
   return (
     <React.Fragment>
       <Title>Streaming Subscriptions</Title>
+      <AddSubModal />
       <Table size="small">
         <TableHead>
           <TableRow>
