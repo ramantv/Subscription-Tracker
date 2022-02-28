@@ -1,88 +1,46 @@
-// see SignupForm.js for comments
-import React, { useState } from 'react';
-import { Form, Button, Alert } from 'react-bootstrap';
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
 
-import Auth from '../utils/auth';
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
-import { useMutation } from '@apollo/client';
-import { LOGIN_USER } from '../utils/mutations';
-
-const AddSubModal = () => {
-  const [userFormData, setUserFormData] = useState({ email: '', password: '' });
-  const [validated] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
-
-  const [login] = useMutation(LOGIN_USER);
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setUserFormData({ ...userFormData, [name]: value });
-  };
-
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-
-    try {
-      const { data } = await login({
-        variables: { ...userFormData }
-      });
-
-      console.log(data);
-
-      Auth.login(data.login.token);
-
-    } catch (e) {
-      console.error(e);
-      setShowAlert(true);
-    }
-
-    setUserFormData({
-      username: '',
-      email: '',
-      password: '',
-    });
-  };
+export default function BasicModal() {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
-    <>
-      <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
-        <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
-          Something went wrong with your login credentials!
-        </Alert>
-        <Form.Group>
-          <Form.Label htmlFor='email'>Email</Form.Label>
-          <Form.Control
-            type='text'
-            placeholder='Your email'
-            name='email'
-            onChange={handleInputChange}
-            value={userFormData.email}
-            required
-          />
-          <Form.Control.Feedback type='invalid'>Email is required!</Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group>
-          <Form.Label htmlFor='password'>Password</Form.Label>
-          <Form.Control
-            type='password'
-            placeholder='Your password'
-            name='password'
-            onChange={handleInputChange}
-            value={userFormData.password}
-            required
-          />
-          <Form.Control.Feedback type='invalid'>Password is required!</Form.Control.Feedback>
-        </Form.Group>
-        <Button
-          disabled={!(userFormData.email && userFormData.password)}
-          type='submit'
-          variant='success'>
-          Submit
-        </Button>
-      </Form>
-    </>
+    <div>
+      <Button onClick={handleOpen}>Open modal</Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Text in a modal
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+          </Typography>
+        </Box>
+      </Modal>
+    </div>
   );
-};
+}
 
 export default AddSubModal;
