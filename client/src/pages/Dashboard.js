@@ -7,17 +7,13 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Link from "@mui/material/Link";
-
 import { useQuery } from "@apollo/client";
-
 import Subscriptions from "../components/Subscriptions";
 //import Chart from "./Chart";
 //import Deposits from "./Deposits";
-
 import Auth from "../utils/auth";
 import { QUERY_ME_BASIC } from "../utils/queries";
 import { Redirect } from "react-router";
-
 import UpperNavBar from "../components/UpperNavBar";
 
 function Copyright(props) {
@@ -41,9 +37,7 @@ function Copyright(props) {
 const mdTheme = createTheme();
 
 function Dashboard() {
-
   const { data: userData } = useQuery(QUERY_ME_BASIC);
-
   if (!Auth.loggedIn()) {
     return <Redirect to="/login" />;
   }
@@ -52,9 +46,7 @@ function Dashboard() {
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-
         <UpperNavBar />
-
         <Box
           component="main"
           sx={{
@@ -67,7 +59,6 @@ function Dashboard() {
             overflow: "auto",
           }}
         >
-
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
               {/* List all the user's Subscriptions */}
@@ -116,7 +107,6 @@ function Dashboard() {
               </Grid>
               */}
             </Grid>
-
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>
