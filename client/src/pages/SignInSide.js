@@ -14,6 +14,7 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Image from "../assets/landing2.jpg";
 
+import backgroundImg from "../assets/landing2.jpg";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
@@ -80,7 +81,7 @@ export default function SignInSide(props) {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: `url(${Image})`,
+            backgroundImage: `url(${backgroundImg})`,
             backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
               t.palette.mode === "light"
