@@ -10,7 +10,7 @@ import Link from "@mui/material/Link";
 import { useQuery } from "@apollo/client";
 import Subscriptions from "../components/Subscriptions";
 import Auth from "../utils/auth";
-import { QUERY_ME_BASIC } from "../utils/queries";
+import { GET_ME } from "../utils/queries";
 import { Redirect } from "react-router";
 import UpperNavBar from "../components/UpperNavBar";
 
@@ -35,9 +35,8 @@ function Copyright(props) {
 const mdTheme = createTheme();
 
 function Dashboard() {
-  const { data: userData } = useQuery(QUERY_ME_BASIC);
+  const { loading, data } = useQuery(GET_ME);
 
-  console.log(userData);
   if (!Auth.loggedIn()) {
     return <Redirect to="/login" />;
   }
@@ -61,9 +60,14 @@ function Dashboard() {
         >
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
+              {/* List all the user's Subscriptions */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  <Subscriptions />
+                  {loading ? (
+                    <span>Loading...</span>
+                  ) : (
+                    <Subscriptions user={data.me} />
+                  )}
                 </Paper>
               </Grid>
             </Grid>
