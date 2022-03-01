@@ -6,7 +6,6 @@ import Modal from '@mui/material/Modal';
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import { useMutation } from "@apollo/client";
-import Auth from "../utils/auth";
 import { ADD_SUBSCRIPTION } from "../utils/mutations";
 
 const style = {
@@ -35,7 +34,7 @@ export default function AddSubModal() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const [addSubscription, { error }] = useMutation(ADD_SUBSCRIPTION);
+  const [addSubscription] = useMutation(ADD_SUBSCRIPTION);
   const [formState, setFormState] = React.useState({
     date: "",
     name: "",
@@ -63,7 +62,7 @@ export default function AddSubModal() {
       const { data } = await addSubscription({
         variables: { ...formState },
       });
-
+      console.log(data);
     } catch (err) {
       console.error(err);
     }

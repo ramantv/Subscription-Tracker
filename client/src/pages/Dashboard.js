@@ -36,6 +36,7 @@ const mdTheme = createTheme();
 
 function Dashboard() {
   const { data: userData } = useQuery(QUERY_ME_BASIC);
+  console.log(userData);
   if (!Auth.loggedIn()) {
     return <Redirect to="/login" />;
   }
