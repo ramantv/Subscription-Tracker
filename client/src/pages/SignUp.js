@@ -38,7 +38,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
-  const [createUser, { error }] = useMutation(CREATE_USER);
+  const [createUser] = useMutation(CREATE_USER);
   const [formState, setFormState] = useState({
     firstName: "",
     lastName: "",
