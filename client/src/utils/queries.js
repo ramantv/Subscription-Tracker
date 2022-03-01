@@ -12,6 +12,7 @@ export const GET_ME = gql`
       subscriptions {
         _id
         name
+        dateCreated
         price
         tiered
         url

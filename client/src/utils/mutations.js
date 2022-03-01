@@ -58,7 +58,8 @@ export const LOGIN = gql`
 export const ADD_SUBSCRIPTION = gql`
   mutation addSubscription(
     $name: String!
-    $price: Int
+    $dateCreated: String!
+    $price: Float!
     $tiered: Boolean
     $url: String
     $cardAlias: String
@@ -66,6 +67,7 @@ export const ADD_SUBSCRIPTION = gql`
   ) {
     addSubscription(
       name: $name
+      dateCreated: $dateCreated
       price: $price
       tiered: $tiered
       url: $url
@@ -79,6 +81,7 @@ export const ADD_SUBSCRIPTION = gql`
       subscriptionCount
       subscriptions {
         name
+        dateCreated
         price
         tiered
         url
@@ -100,6 +103,7 @@ export const DELETE_SUBSCRIPTION = gql`
       subscriptions {
         _id
         name
+        dateCreated
         price
         tiered
         cardAlias

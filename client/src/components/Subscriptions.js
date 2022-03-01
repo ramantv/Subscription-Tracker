@@ -1,89 +1,39 @@
-import * as React from 'react';
-import Link from '@mui/material/Link';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Title from './Title';
-import Button from "@mui/material/Button";
+import * as React from "react";
+import {
+  Link,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Button,
+  Typography,
+} from "@mui/material";
+import Title from "./Title";
 import { useMutation } from "@apollo/client";
-import Auth from "../utils/auth";
 import { DELETE_SUBSCRIPTION } from "../utils/mutations";
 
-import AddSubModal from './AddSubModal'
+import AddSubModal from "./AddSubModal";
 
-// Generate Some random Subscription Data
-function createData(id, date, name, category, paymentMethod, amount) {
-  return { id, date, name, category, paymentMethod, amount };
-}
-
-const rows = [
-  createData(
-    0,
-    '16 Mar, 2019',
-    'Netflix',
-    'Video Streaming',
-    'VISA ⠀•••• 3719',
-    19.99,
-  ),
-  createData(
-    1,
-    '16 Mar, 2019',
-    'Youtube Premium',
-    'Video Streaming',
-    'VISA ⠀•••• 2574',
-    9.99,
-  ),
-  createData(
-    2,
-    '16 Mar, 2019',
-    'Amazon Prime',
-    'Video Streaming',
-    'AMEX ⠀•••• 2000',
-    12.99,
-  ),
-  createData(
-    3,
-    '15 Mar, 2019',
-    'Spotify',
-    'Music Streaming',
-    'VISA ⠀•••• 5919',
-    6.99,
-  ),
-  createData(
-    4,
-    '01 Jan, 2020',
-    'Sirius XM',
-    'Satellite Radio',
-    'Paypal',
-    5.99,
-  ),
-
-];
-
-function preventDefault(event) {
-  event.preventDefault();
-}
-
-export default function Orders() {
-
+export default function Subscriptions({ subscriptions }) {
   const [deleteSubscription, { error }] = useMutation(DELETE_SUBSCRIPTION);
 
-  const handleDelete = async (row, e) => {
+  const monthlyTotal = subscriptions.reduce((total, subscription) => {
+    const addedValue = parseFloat(
+      subscription.price / subscription.billingCycle
+    );
+    return parseFloat((total + addedValue).toFixed(2));
+  }, 0);
 
-    console.log({ ...row });
-
+  const handleDelete = async (_id) => {
     try {
-      const { data } = await deleteSubscription({
-        variables: { ...row },
+      await deleteSubscription({
+        variables: { _id: _id },
       });
-
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     }
   };
-
 
   return (
     <React.Fragment>
@@ -94,23 +44,29 @@ export default function Orders() {
           <TableRow>
             <TableCell>Date</TableCell>
             <TableCell>Name</TableCell>
-            <TableCell>Category</TableCell>
-            <TableCell>Payment Method</TableCell>
+            <TableCell>Card Alias</TableCell>
             <TableCell align="right">Monthly Cost</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>{row.date}</TableCell>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.category}</TableCell>
-              <TableCell>{row.paymentMethod}</TableCell>
-              <TableCell align="right">{`$${row.amount}`}</TableCell>
+          {subscriptions.map((subscription) => (
+            <TableRow key={subscription._id}>
+              <TableCell>{subscription.dateCreated}</TableCell>
+              <TableCell>
+                {subscription.url ? (
+                  <Link href={subscription.url}>{subscription.name}</Link>
+                ) : (
+                  <>{subscription.name}</>
+                )}
+              </TableCell>
+              <TableCell>{subscription.cardAlias}</TableCell>
+              <TableCell align="right">{`$${(
+                subscription.price / subscription.billingCycle
+              ).toFixed(2)}`}</TableCell>
               <TableCell>
                 <Button
                   variant="contained"
-                  onClick={(e) => handleDelete(row, e)}
+                  onClick={(e) => handleDelete(subscription._id)}
                 >
                   X
                 </Button>
@@ -119,9 +75,7 @@ export default function Orders() {
           ))}
         </TableBody>
       </Table>
-      <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-        See more Subscriptions
-      </Link>
+      <Typography>Monthly Total: {monthlyTotal}</Typography>
     </React.Fragment>
   );
 }

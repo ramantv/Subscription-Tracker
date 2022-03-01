@@ -1,5 +1,11 @@
 import React, { useState } from "react";
 import { Box, Typography, Grid, TextField, Button } from "@mui/material";
+import {
+  getMovies,
+  getTV,
+  getMovieProvider,
+  getTVProvider,
+} from "../utils/API";
 
 const style = {
   position: "absolute",
@@ -13,16 +19,28 @@ const style = {
   p: 4,
 };
 
+const POSTER_BASE_URL = "https://image.tmdb.org/t/p/original";
+
 export default function AddToWatchList() {
   const [movieInput, setMovieInput] = useState("");
   const [tvInput, setTvInput] = useState("");
+  const [searchDetails, setSearchDetails] = useState({})
 
   function handleChange(event) {
     const { name, value } = event.target;
+    name === "movieSearch" ? setMovieInput(value) : setTvInput(value);
   }
 
-  function handleSearch() {
-    return;
+  async function handleSearch(searchType) {
+    if (searchType === "movie") {
+      const {results} = await getMovies(movieInput);
+      setSearchDetails({
+        name: movies.
+      })
+    } else {
+      const tvShow = await getTV(tvInput);
+      console.log(tvShow);
+    }
   }
 
   function handleSubmit() {
@@ -59,16 +77,12 @@ export default function AddToWatchList() {
             />
           </Grid>
           <Grid item xs={6}>
-            <Button
-              variant="contained"
-              searchType="movie"
-              onClick={handleSearch}
-            >
+            <Button variant="contained" onClick={() => handleSearch("movie")}>
               Search Movies
             </Button>
           </Grid>
           <Grid item xs={6}>
-            <Button variant="contained" searchType="tv" onClick={handleSearch}>
+            <Button variant="contained" onClick={() => handleSearch("tv")}>
               Search TV
             </Button>
           </Grid>
@@ -80,7 +94,7 @@ export default function AddToWatchList() {
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
         >
-          Add Subscription
+          Add to Watch List
         </Button>
       </Box>
     </Box>
