@@ -1,18 +1,4 @@
-import { gql } from '@apollo/client';
-
-export const ADD_USER = gql`
-  mutation addUser($firstName: String!, $lastName: String!, $email: String!, $password: String!) {
-    addUser(firstName: $firstName, lastName: $lastName, email: $email, password: $password) {
-      token
-      user {
-        _id
-        firstName
-        lastName
-        email
-      }
-    }
-  }
-`;
+import { gql } from "@apollo/client";
 
 export const CREATE_USER = gql`
   mutation createUser(
@@ -117,6 +103,36 @@ export const DELETE_SUBSCRIPTION = gql`
         price
         tiered
         cardAlias
+      }
+    }
+  }
+`;
+
+export const ADD_TO_WATCH_LIST = gql`
+  mutation addToWatchList($name: String!, $tmdbId: String!) {
+    addToWatchList(name: $name, tmdbId: $tmdbId) {
+      firstName
+      lastName
+      email
+      watchList {
+        _id
+        name
+        tmdbId
+      }
+    }
+  }
+`;
+
+export const DELETE_FROM_WATCH_LIST = gql`
+  mutation deleteFromWatchList($_id: ID!) {
+    deleteFromWatchList(_id: $_id) {
+      firstName
+      lastName
+      email
+      watchList {
+        _id
+        name
+        tmdbId
       }
     }
   }

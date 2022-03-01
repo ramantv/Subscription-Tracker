@@ -12,7 +12,9 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Image from "../assets/landing2.jpg";
 
+import backgroundImg from "../assets/landing2.jpg";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
@@ -26,8 +28,8 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Video Subscriptions Tracker
+      <Link color="inherit" href="/">
+        Subtrackt
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -42,26 +44,16 @@ export default function SignInSide(props) {
   const [login, { error }] = useMutation(LOGIN_USER);
 
   // update state based on form input changes
-  /*
   const handleChange = (event) => {
     const { name, value } = event.target;
-
     setFormState({
       ...formState,
       [name]: value,
     });
   };
-  */
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-
     try {
       const { data } = await login({
         variables: { ...formState },
@@ -89,7 +81,7 @@ export default function SignInSide(props) {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: "url(https://source.unsplash.com/random)",
+            backgroundImage: `url(${backgroundImg})`,
             backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
               t.palette.mode === "light"
@@ -129,6 +121,7 @@ export default function SignInSide(props) {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                onChange={handleChange}
                 autoFocus
               />
               <TextField
@@ -139,6 +132,7 @@ export default function SignInSide(props) {
                 label="Password"
                 type="password"
                 id="password"
+                onChange={handleChange}
                 autoComplete="current-password"
               />
               <FormControlLabel
