@@ -26,7 +26,9 @@ const typeDefs = gql`
   type WatchList {
     _id: ID
     name: String
-    tmdbId: String
+    tmdbId: Int
+    type: String
+    providers: [String]
   }
 
   type Service {
@@ -81,7 +83,12 @@ const typeDefs = gql`
       billingCycle: Int!
     ): User
     deleteSubscription(_id: ID!): User
-    addToWatchList(name: String!, tmdbId: String!): User
+    addToWatchList(
+      name: String!
+      tmdbId: Int!
+      type: String!
+      providers: [String]
+    ): User
     deleteFromWatchList(_id: ID!): User
     # Service mutations
     createService(

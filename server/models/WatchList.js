@@ -7,8 +7,16 @@ const watchListSchema = new Schema({
     trim: true,
   },
   tmdbId: {
+    type: Number,
+    required: true,
+  },
+  type: {
     type: String,
     required: true,
+  },
+  providers: {
+    type: [String],
+    required: false,
   },
 });
 

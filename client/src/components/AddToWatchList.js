@@ -1,11 +1,21 @@
 import React, { useState } from "react";
-import { Box, Typography, Grid, TextField, Button } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Grid,
+  TextField,
+  Button,
+  ImageList,
+  ImageListItem,
+} from "@mui/material";
 import {
   getMovies,
   getTV,
   getMovieProvider,
   getTVProvider,
 } from "../utils/API";
+import { useMutation } from "@apollo/client";
+import { ADD_TO_WATCH_LIST } from "../utils/mutations";
 
 const style = {
   position: "absolute",
@@ -21,10 +31,12 @@ const style = {
 
 const POSTER_BASE_URL = "https://image.tmdb.org/t/p/original";
 
-export default function AddToWatchList() {
+export default function AddToWatchList({ setToggleModal }) {
   const [movieInput, setMovieInput] = useState("");
   const [tvInput, setTvInput] = useState("");
-  const [searchDetails, setSearchDetails] = useState({})
+  const [searchDetails, setSearchDetails] = useState(null);
+  const [selected, setSelected] = useState({});
+  const [addToWatchList] = useMutation(ADD_TO_WATCH_LIST);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -33,18 +45,68 @@ export default function AddToWatchList() {
 
   async function handleSearch(searchType) {
     if (searchType === "movie") {
-      const {results} = await getMovies(movieInput);
-      setSearchDetails({
-        name: movies.
-      })
+      const { results } = await getMovies(movieInput);
+      const movieSelection =
+        results.length >= 3
+          ? [results[0], results[1], results[2]]
+          : [results[0]];
+      const movieData = movieSelection.map((movie) => ({
+        name: movie.title,
+        tmdbId: movie.id,
+        image: POSTER_BASE_URL + movie.poster_path,
+        type: "movie",
+      }));
+
+      setSearchDetails(movieData);
     } else {
-      const tvShow = await getTV(tvInput);
-      console.log(tvShow);
+      const { results } = await getTV(tvInput);
+      const tvSelection =
+        results.length >= 3
+          ? [results[0], results[1], results[2]]
+          : [results[0]];
+      const tvData = tvSelection.map((tv) => ({
+        name: tv.name,
+        tmdbId: tv.id,
+        image: POSTER_BASE_URL + tv.poster_path,
+        type: "tv",
+      }));
+
+      setSearchDetails(tvData);
     }
   }
 
-  function handleSubmit() {
-    return;
+  async function handleClick(item) {
+    let providers;
+    if (item.type === "movie") {
+      const { results } = await getMovieProvider(item.tmdbId);
+      results.US.flatrate === undefined
+        ? (providers = ["Sorry, no providers found"])
+        : (providers = results.US.flatrate.map((item) => item.provider_name));
+    } else {
+      const { results } = await getTVProvider(item.tmdbId);
+      results.US.flatrate === undefined
+        ? (providers = ["Sorry, no providers found"])
+        : (providers = results.US.flatrate.map((item) => item.provider_name));
+    }
+
+    setSelected({
+      name: item.name,
+      tmdbId: item.tmdbId,
+      type: item.type,
+      providers: providers,
+    });
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    try {
+      await addToWatchList({
+        variables: { ...selected },
+      });
+    } catch (err) {
+      console.error(err);
+    }
+    setToggleModal(false);
   }
 
   return (
@@ -86,7 +148,30 @@ export default function AddToWatchList() {
               Search TV
             </Button>
           </Grid>
-          <Grid item xs={12}></Grid>
+          <Grid item xs={12}>
+            {searchDetails && (
+              <>
+                <Typography>Select from the options below</Typography>
+                <ImageList sx={12} cols={3}>
+                  {searchDetails.map((item, index) => (
+                    <Button onClick={() => handleClick(item)}>
+                      <ImageListItem key={item.name}>
+                        <img
+                          src={item.image}
+                          srcSet={item.image}
+                          alt={item.name}
+                          loading="lazy"
+                        />
+                      </ImageListItem>
+                    </Button>
+                  ))}
+                </ImageList>
+              </>
+            )}
+          </Grid>
+          <Grid item xs={12}>
+            <Typography>You selected: {selected.name}</Typography>
+          </Grid>
         </Grid>
         <Button
           type="submit"
