@@ -18,19 +18,6 @@ const servicesArray = [
   ['YouTube Premium', 12, false, 'https://www.youtube.com/'],
 ];
 
-/**
- * Services master list export.
- * ```
- * [
- *   {
- *      name: string,
- *      price: int,
- *      tiered: boolean,
- *      url: string
- *   }
- * ]
- * ```
- */
 let servicesList = [];
 
 servicesArray.forEach((service) => {
