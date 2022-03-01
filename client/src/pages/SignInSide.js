@@ -12,7 +12,6 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Image from "../assets/landing2.jpg";
 
 import backgroundImg from "../assets/landing2.jpg";
 import { useMutation } from "@apollo/client";
@@ -41,7 +40,7 @@ const theme = createTheme();
 
 export default function SignInSide(props) {
   const [formState, setFormState] = useState({ email: "", password: "" });
-  const [login, { error }] = useMutation(LOGIN_USER);
+  const [login] = useMutation(LOGIN_USER);
 
   // update state based on form input changes
   const handleChange = (event) => {
