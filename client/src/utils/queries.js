@@ -23,6 +23,7 @@ export const GET_ME = gql`
         _id
         name
         tmdbId
+        providers
       }
     }
   }

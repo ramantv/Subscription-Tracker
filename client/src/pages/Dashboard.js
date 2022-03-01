@@ -9,6 +9,8 @@ import Paper from "@mui/material/Paper";
 import Link from "@mui/material/Link";
 import { useQuery } from "@apollo/client";
 import Subscriptions from "../components/Subscriptions";
+import WatchList from "../components/WatchList";
+
 import Auth from "../utils/auth";
 import { GET_ME } from "../utils/queries";
 import { Redirect } from "react-router";
@@ -36,6 +38,7 @@ const mdTheme = createTheme();
 
 function Dashboard() {
   const { loading, data } = useQuery(GET_ME);
+  const { subscriptions, watchList } = data?.me || {};
 
   if (!Auth.loggedIn()) {
     return <Redirect to="/login" />;
@@ -66,7 +69,23 @@ function Dashboard() {
                   {loading ? (
                     <span>Loading...</span>
                   ) : (
-                    <Subscriptions user={data.me} />
+                    <Subscriptions subscriptions={subscriptions} />
+                  )}
+                </Paper>
+              </Grid>
+              {/* List the user's Watch List*/}
+              <Grid item xs={12}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  {loading ? (
+                    <span>Loading...</span>
+                  ) : (
+                    <WatchList watchList={watchList} />
                   )}
                 </Paper>
               </Grid>
