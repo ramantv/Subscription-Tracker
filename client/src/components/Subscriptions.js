@@ -1,41 +1,42 @@
 import * as React from "react";
-import Link from "@mui/material/Link";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
+import {
+  Link,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Button,
+  Typography,
+} from "@mui/material";
 import Title from "./Title";
-import Button from "@mui/material/Button";
 import { useMutation } from "@apollo/client";
-import Auth from "../utils/auth";
 import { DELETE_SUBSCRIPTION } from "../utils/mutations";
 
 import AddSubModal from "./AddSubModal";
-
-import { useQuery } from "@apollo/client";
-import { GET_ME } from "../utils/queries";
 
 function preventDefault(event) {
   event.preventDefault();
 }
 
-export default function Orders() {
-  const { user, loading } = useQuery(GET_ME);
+export default function Subscriptions({ user }) {
   const subscriptions = user.subscriptions;
-  console.log(user);
-
   const [deleteSubscription, { error }] = useMutation(DELETE_SUBSCRIPTION);
 
-  const handleDelete = async (row, e) => {
-    console.log({ ...row });
+  const monthlyTotal = subscriptions.reduce((total, subscription) => {
+    const addedValue = parseFloat(
+      subscription.price / subscription.billingCycle
+    );
+    return parseFloat((total + addedValue).toFixed(2));
+  }, 0);
 
+  const handleDelete = async (_id) => {
     try {
-      const { data } = await deleteSubscription({
-        variables: { ...row },
+      await deleteSubscription({
+        variables: { _id: _id },
       });
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -46,9 +47,8 @@ export default function Orders() {
       <Table size="small">
         <TableHead>
           <TableRow>
+            <TableCell>Date</TableCell>
             <TableCell>Name</TableCell>
-            <TableCell>URL</TableCell>
-            <TableCell>Tiered</TableCell>
             <TableCell>Card Alias</TableCell>
             <TableCell align="right">Monthly Cost</TableCell>
           </TableRow>
@@ -56,18 +56,31 @@ export default function Orders() {
         <TableBody>
           {subscriptions.map((subscription) => (
             <TableRow key={subscription._id}>
-              <TableCell>{subscription.name}</TableCell>
-              <TableCell>{subscription.url}</TableCell>
-              <TableCell>{subscription.tiered}</TableCell>
+              <TableCell>{subscription.dateCreated}</TableCell>
+              <TableCell>
+                {subscription.url ? (
+                  <Link href={subscription.url}>{subscription.name}</Link>
+                ) : (
+                  <>{subscription.name}</>
+                )}
+              </TableCell>
               <TableCell>{subscription.cardAlias}</TableCell>
-              <TableCell align="right">{`$${subscription.price}`}</TableCell>
+              <TableCell align="right">{`$${(
+                subscription.price / subscription.billingCycle
+              ).toFixed(2)}`}</TableCell>
+              <TableCell>
+                <Button
+                  variant="contained"
+                  onClick={(e) => handleDelete(subscription._id)}
+                >
+                  X
+                </Button>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-        See more Subscriptions
-      </Link>
+      <Typography>Monthly Total: {monthlyTotal}</Typography>
     </React.Fragment>
   );
 }

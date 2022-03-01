@@ -6,6 +6,10 @@ const subscriptionSchema = new Schema({
     required: true,
     trim: true,
   },
+  dateCreated: {
+    type: String,
+    required: true,
+  },
   price: {
     type: Number,
     required: true,

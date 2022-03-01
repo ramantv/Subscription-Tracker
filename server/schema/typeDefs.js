@@ -15,7 +15,8 @@ const typeDefs = gql`
   type Subscription {
     _id: ID
     name: String
-    price: Int
+    dateCreated: String
+    price: Float
     tiered: Boolean
     url: String
     cardAlias: String
@@ -31,7 +32,7 @@ const typeDefs = gql`
   type Service {
     _id: ID
     name: String
-    price: Int
+    price: Float
     tiered: Boolean
     url: String
   }
@@ -72,7 +73,8 @@ const typeDefs = gql`
     changePassword(password: String!): User
     addSubscription(
       name: String!
-      price: Int
+      dateCreated: String!
+      price: Float!
       tiered: Boolean
       url: String
       cardAlias: String
@@ -84,7 +86,7 @@ const typeDefs = gql`
     # Service mutations
     createService(
       name: String!
-      price: Int!
+      price: Float!
       tiered: Boolean!
       url: String!
     ): Service
