@@ -24,11 +24,10 @@ import {
   secondaryMenuItems,
 } from "../components/LeftNavMenuItems";
 import Subscriptions from "../components/Subscriptions";
-//import Chart from "./Chart";
-//import Deposits from "./Deposits";
+import WatchList from "../components/WatchList";
 
 import Auth from "../utils/auth";
-import { QUERY_ME_BASIC } from "../utils/queries";
+import { GET_ME } from "../utils/queries";
 import { Redirect } from "react-router";
 
 function Copyright(props) {
@@ -102,8 +101,8 @@ function Dashboard() {
   const toggleDrawer = () => {
     setOpen(!open);
   };
-
-  const { data: userData } = useQuery(QUERY_ME_BASIC);
+  const { loading, data } = useQuery(GET_ME);
+  const { subscriptions, watchList } = data?.me || {};
 
   if (!Auth.loggedIn()) {
     return <Redirect to="/login" />;
@@ -186,50 +185,31 @@ function Dashboard() {
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
               {/* List all the user's Subscriptions */}
-
-              {/*
-              {loggedIn && userData ? (
-              */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  <Subscriptions />
+                  {loading ? (
+                    <span>Loading...</span>
+                  ) : (
+                    <Subscriptions subscriptions={subscriptions} />
+                  )}
                 </Paper>
               </Grid>
-              {/*
-              ) : null}
-              */}
-
-              {/* Chart */}
-              {/*
-              <Grid item xs={12} md={8} lg={9}>
+              {/* List the user's Watch List*/}
+              <Grid item xs={12}>
                 <Paper
                   sx={{
                     p: 2,
                     display: "flex",
                     flexDirection: "column",
-                    height: 240,
                   }}
                 >
-                  <Chart />
+                  {loading ? (
+                    <span>Loading...</span>
+                  ) : (
+                    <WatchList watchList={watchList} />
+                  )}
                 </Paper>
               </Grid>
-              */}
-
-              {/* Recent Deposits */}
-              {/* 
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 240,
-                  }}
-                >
-                  <Deposits />
-                </Paper>
-              </Grid>
-              */}
             </Grid>
 
             <Copyright sx={{ pt: 4 }} />
