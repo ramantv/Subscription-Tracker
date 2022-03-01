@@ -9,8 +9,6 @@ import Paper from "@mui/material/Paper";
 import Link from "@mui/material/Link";
 import { useQuery } from "@apollo/client";
 import Subscriptions from "../components/Subscriptions";
-//import Chart from "./Chart";
-//import Deposits from "./Deposits";
 import Auth from "../utils/auth";
 import { QUERY_ME_BASIC } from "../utils/queries";
 import { Redirect } from "react-router";
@@ -61,51 +59,11 @@ function Dashboard() {
         >
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
-              {/* List all the user's Subscriptions */}
-
-              {/*
-              {loggedIn && userData ? (
-              */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
                   <Subscriptions />
                 </Paper>
               </Grid>
-              {/*
-              ) : null}
-              */}
-
-              {/* Chart */}
-              {/*
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 240,
-                  }}
-                >
-                  <Chart />
-                </Paper>
-              </Grid>
-              */}
-
-              {/* Recent Deposits */}
-              {/* 
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 240,
-                  }}
-                >
-                  <Deposits />
-                </Paper>
-              </Grid>
-              */}
             </Grid>
             <Copyright sx={{ pt: 4 }} />
           </Container>
