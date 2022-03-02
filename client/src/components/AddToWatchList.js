@@ -153,14 +153,15 @@ export default function AddToWatchList({ setToggleModal }) {
               <>
                 <Typography>Select from the options below</Typography>
                 <ImageList sx={12} cols={3}>
-                  {searchDetails.map((item, index) => (
+                  {searchDetails.map((item) => (
                     <Button onClick={() => handleClick(item)}>
                       <ImageListItem key={item.name}>
                         <img
-                          src={item.image}
+                          src={`${item.image}?w=164&h=164&fit=crop&auto=format`}
                           srcSet={item.image}
                           alt={item.name}
                           loading="lazy"
+                          style={{ maxHeight: "40vh" }}
                         />
                       </ImageListItem>
                     </Button>
@@ -170,7 +171,9 @@ export default function AddToWatchList({ setToggleModal }) {
             )}
           </Grid>
           <Grid item xs={12}>
-            <Typography>You selected: {selected.name}</Typography>
+            <Typography fontSize={20}>
+              Your selection: {selected.name}
+            </Typography>
           </Grid>
         </Grid>
         <Button
