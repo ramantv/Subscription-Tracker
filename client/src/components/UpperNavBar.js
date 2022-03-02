@@ -5,13 +5,13 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import LogoutIcon from '@mui/icons-material/Logout';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import MovieIcon from '@mui/icons-material/Movie';
-import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+// import DashboardIcon from '@mui/icons-material/Dashboard';
+// import MovieIcon from '@mui/icons-material/Movie';
+// import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
+// import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Redirect } from "react-router";
 import Auth from "../utils/auth";
 
@@ -49,7 +49,7 @@ const ResponsiveAppBar = () => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 
-            <Button
+            {/* <Button
               sx={{ my: 2, color: 'white', display: 'block' }}
             >
               <DashboardIcon />
@@ -72,7 +72,7 @@ const ResponsiveAppBar = () => {
             >
               <AccountCircleIcon />
               User Profile
-            </Button>
+            </Button> */}
 
           </Box>
 
