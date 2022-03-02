@@ -24,7 +24,7 @@ The app is built with MongoDB, Express, React and Node. GraphQL API with Apollo 
 
 ## Deployed Link
 
-[Vide-Subscription-tracker](https://radiant-hamlet-31156.herokuapp.com/)
+[Video-Subscription-tracker](https://quiet-wildwood-89723.herokuapp.com/)
 
 ## Screenshots
 
@@ -40,7 +40,7 @@ The app is built with MongoDB, Express, React and Node. GraphQL API with Apollo 
 
 ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)  
 ![Express.js](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)  
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)  
 ![Material-UI](https://img.shields.io/badge/Material--UI-0081CB?style=for-the-badge&logo=material-ui&logoColor=white)  
 ![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)  
 ![GraphQL](https://img.shields.io/badge/GraphQL-E4405F?style=for-the-badge)  
