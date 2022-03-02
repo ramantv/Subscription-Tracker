@@ -40,7 +40,7 @@ function WatchList({ watchList }) {
       </Table>
       <Button onClick={handleToggle}>Add to Watch List</Button>
       <Modal style={style} open={toggleModal} onClose={handleToggle}>
-        <AddToWatchList setToggleModal={setToggleModal} />
+        <AddToWatchList handleToggle={handleToggle} />
       </Modal>
     </>
   );
