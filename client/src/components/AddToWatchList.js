@@ -43,6 +43,10 @@ export default function AddToWatchList({ handleToggle }) {
     name === "movieSearch" ? setMovieInput(value) : setTvInput(value);
   }
 
+  function onKeyPress(e) {
+    e.key === "Enter" && e.preventDefault();
+  }
+
   async function handleSearch(searchType) {
     if (searchType === "movie") {
       const { results } = await getMovies(movieInput);
@@ -125,6 +129,7 @@ export default function AddToWatchList({ handleToggle }) {
               id="movieSearch"
               label="Movie Search"
               onChange={handleChange}
+              onKeyPress={(e) => onKeyPress(e)}
               autoFocus
             />
           </Grid>
@@ -136,6 +141,7 @@ export default function AddToWatchList({ handleToggle }) {
               label="TV Search"
               name="tvSearch"
               onChange={handleChange}
+              onKeyPress={(e) => onKeyPress(e)}
             />
           </Grid>
           <Grid item xs={6}>
