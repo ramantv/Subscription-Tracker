@@ -31,7 +31,7 @@ const style = {
 
 const POSTER_BASE_URL = "https://image.tmdb.org/t/p/original";
 
-export default function AddToWatchList({ setToggleModal }) {
+export default function AddToWatchList({ handleToggle }) {
   const [movieInput, setMovieInput] = useState("");
   const [tvInput, setTvInput] = useState("");
   const [searchDetails, setSearchDetails] = useState(null);
@@ -41,6 +41,10 @@ export default function AddToWatchList({ setToggleModal }) {
   function handleChange(event) {
     const { name, value } = event.target;
     name === "movieSearch" ? setMovieInput(value) : setTvInput(value);
+  }
+
+  function onKeyPress(e) {
+    e.key === "Enter" && e.preventDefault();
   }
 
   async function handleSearch(searchType) {
@@ -106,7 +110,7 @@ export default function AddToWatchList({ setToggleModal }) {
     } catch (err) {
       console.error(err);
     }
-    setToggleModal(false);
+    handleToggle();
   }
 
   return (
@@ -125,6 +129,7 @@ export default function AddToWatchList({ setToggleModal }) {
               id="movieSearch"
               label="Movie Search"
               onChange={handleChange}
+              onKeyPress={(e) => onKeyPress(e)}
               autoFocus
             />
           </Grid>
@@ -136,6 +141,7 @@ export default function AddToWatchList({ setToggleModal }) {
               label="TV Search"
               name="tvSearch"
               onChange={handleChange}
+              onKeyPress={(e) => onKeyPress(e)}
             />
           </Grid>
           <Grid item xs={6}>

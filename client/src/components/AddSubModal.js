@@ -45,7 +45,6 @@ export default function AddSubModal() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const today = currentDate();
-
   const [addSubscription] = useMutation(ADD_SUBSCRIPTION);
   const [formState, setFormState] = React.useState({
     dateCreated: today,
