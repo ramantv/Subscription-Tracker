@@ -26,6 +26,7 @@
     "if-env": "^1.0.4"
   },
   "devDependencies": {
-    "concurrently": "^7.0.0"
+    "concurrently": "^7.0.0",
+    "webpack-pwa-manifest": "^4.3.0"
   }
 }
