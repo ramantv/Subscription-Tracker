@@ -11,6 +11,10 @@ import {
 import Title from "./Title";
 import AddToWatchList from "./AddToWatchList";
 
+const style = {
+  overflow: "scroll",
+};
+
 function WatchList({ watchList }) {
   const [toggleModal, setToggleModal] = useState(false);
   const handleToggle = () => setToggleModal(!toggleModal);
@@ -35,7 +39,7 @@ function WatchList({ watchList }) {
         </TableBody>
       </Table>
       <Button onClick={handleToggle}>Add to Watch List</Button>
-      <Modal open={toggleModal} onClose={handleToggle}>
+      <Modal style={style} open={toggleModal} onClose={handleToggle}>
         <AddToWatchList setToggleModal={setToggleModal} />
       </Modal>
     </>
