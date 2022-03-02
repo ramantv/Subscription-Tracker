@@ -16,7 +16,7 @@ import { DELETE_SUBSCRIPTION } from "../utils/mutations";
 import AddSubModal from "./AddSubModal";
 
 export default function Subscriptions({ subscriptions }) {
-  const [deleteSubscription, { error }] = useMutation(DELETE_SUBSCRIPTION);
+  const [deleteSubscription] = useMutation(DELETE_SUBSCRIPTION);
 
   const monthlyTotal = subscriptions.reduce((total, subscription) => {
     const addedValue = parseFloat(
